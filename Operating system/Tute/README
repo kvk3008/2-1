@@ -1,0 +1,17 @@
+OS Tute - 1
+
+Problem 1 :  Reverse the File
+
+Given a file, you need to reverse the contents of that file and store the results in a newly created file. The file and directory thus created, can only be read/written by the user who created it.
+                                                             .........
+
+* The Input for the program is via command line arguments.
+
+    example : ./a.out filename
+
+    where filename is the file to be reversed and stored in a new file.
+
+* The new file is created is named as ReversedFile.txt
+
+                                                             -----------
+

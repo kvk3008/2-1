@@ -1,0 +1,71 @@
+#include<stdio.h>
+#include<sys/types.h>
+#include<sys/stat.h>
+#include<fcntl.h>
+char path[100];
+void strn(char *src)
+{
+	int i=0,j;
+	while(path[i]!='\0')
+		i++; 
+	j=0;
+	while(src[j]!='\0')
+	{
+		path[i]=src[j];
+		j++;
+		i++; 
+	}    
+	return ;
+}
+void strcp(char *src)
+{
+	int i=0;
+	while(src[i]!='\0')
+	{
+		path[i]=src[i];
+		i++;
+	}
+	return ;
+} 
+int strleng(char *str)
+{
+	int x=0;
+	while(str[x]!='\0')
+		x++;
+	return x;
+}	
+int main(int argc,char *argv[])
+{
+	FILE  *file;
+	int   i,j,temp;
+	char  *r;
+	strcp("/proc/");
+	strn(argv[1]);
+	strn("/status");
+	i=open(path,O_RDONLY);
+	if(i==-1)
+		write(1,"NOFILE",7);
+	else
+	{
+		while((temp=read(i,r,100))!=-1)
+		{
+			if(r[22]=='l')
+				write(1,"SLEEPING",8);
+			else if(r[22]=='t')
+				write(1,"STOPPED",7);
+			else if(r[22]=='u')
+				write(1,"SUSPEND",7); 
+			else 
+				write(1,"DAEMON",8);
+			for(i=46;r[i]!='\n';i++)
+				write(1,r+i,1);
+			for(i=52;r[i]!='\n';i++)
+				write(1,r+i,1);
+
+
+			break;
+		}
+	}
+	close(file);
+
+}
